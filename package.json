@@ -12,7 +12,7 @@
   "author": "SRIKOT",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
