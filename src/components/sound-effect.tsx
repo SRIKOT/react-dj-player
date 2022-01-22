@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { fetchBuffer } from "../utils"
-import { SoundEffectProps } from "../interfaces"
+import { SoundEffectProps, WebAudioApiState } from "../interfaces"
 import { Button } from "../styles/components/sound-effect"
 
 interface Props extends SoundEffectProps {
   insertDefaultUI: boolean
-  audioContext: AudioContext
-  destination: AudioDestinationNode
-  mediaStreamDestinationNode: MediaStreamAudioDestinationNode
+  webAudioApi: WebAudioApiState
   setSoundEffectReady: (ready: boolean) => void
 }
 
@@ -17,14 +15,13 @@ const SoundEffect = ({
   volume = 1,
   onRef,
   insertDefaultUI,
-  audioContext,
-  destination,
-  mediaStreamDestinationNode,
+  webAudioApi,
   setSoundEffectReady,
 }: Props) => {
   const [gainDj, setGainDj] = useState<GainNode>()
   const [gainListener, setGainListener] = useState<GainNode>()
   const [buffer, setBuffer] = useState<AudioBuffer>()
+  const { audioContext, destination, mediaStreamDestinationNode } = webAudioApi
 
   const playSoundEffect = () => {
     if (!gainDj || !gainListener || !buffer) return

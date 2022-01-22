@@ -3,6 +3,7 @@ import {
   UserMediaProps,
   AudioPlayerProps,
   SoundEffectProps,
+  WebAudioApiState,
 } from "../interfaces"
 import AudioPlayer from "./audio-player"
 import SoundEffect from "./sound-effect"
@@ -29,13 +30,10 @@ const ReactDjPlayer = ({
   soundEffects,
   onStream,
 }: ReactDjPlayerProps) => {
-  const [audioContext, setAudioContext] = useState<AudioContext>()
-  const [destination, setDestination] = useState<AudioDestinationNode>()
-  const [mediaStreamDestinationNode, setMediaStreamDestinationNode] =
-    useState<MediaStreamAudioDestinationNode>()
   const [userMediaReady, setUserMediaReady] = useState<boolean>(false)
   const [musicReady, setMusicReady] = useState<boolean>(false)
   const [soundEffectReady, setSoundEffectReady] = useState<boolean>(false)
+  const [webAudioApi, setWebAudioApi] = useState<WebAudioApiState>()
 
   useEffect(() => {
     const AudioContext =
@@ -46,33 +44,29 @@ const ReactDjPlayer = ({
     if (!audioPlayer) setMusicReady(true)
     if (!soundEffects) setSoundEffectReady(true)
 
-    setAudioContext(context)
-    setDestination(context.destination)
-    setMediaStreamDestinationNode(context.createMediaStreamDestination())
+    setWebAudioApi({
+      audioContext: context,
+      destination: context.destination,
+      mediaStreamDestinationNode: context.createMediaStreamDestination(),
+    })
   }, [])
 
   useEffect(() => {
-    if (
-      mediaStreamDestinationNode &&
-      userMediaReady &&
-      musicReady &&
-      soundEffectReady
-    ) {
-      if (onStream) onStream(mediaStreamDestinationNode.stream)
+    if (webAudioApi && userMediaReady && musicReady && soundEffectReady) {
+      if (onStream) onStream(webAudioApi.mediaStreamDestinationNode.stream)
     }
-  }, [mediaStreamDestinationNode, userMediaReady, musicReady, soundEffectReady])
+  }, [webAudioApi, userMediaReady, musicReady, soundEffectReady])
 
   return (
     <Container>
-      {audioContext && destination && mediaStreamDestinationNode ? (
+      {webAudioApi ? (
         <>
           <UserMediaContainer>
             {userMedia && (
               <UserMedia
                 {...userMedia}
                 insertDefaultUI={insertDefaultUI}
-                audioContext={audioContext}
-                mediaStreamDestinationNode={mediaStreamDestinationNode}
+                webAudioApi={webAudioApi}
                 setUserMediaReady={setUserMediaReady}
               />
             )}
@@ -84,9 +78,7 @@ const ReactDjPlayer = ({
                   {...s}
                   key={i}
                   insertDefaultUI={insertDefaultUI}
-                  audioContext={audioContext}
-                  destination={destination}
-                  mediaStreamDestinationNode={mediaStreamDestinationNode}
+                  webAudioApi={webAudioApi}
                   setSoundEffectReady={setSoundEffectReady}
                 />
               ))}
@@ -97,9 +89,7 @@ const ReactDjPlayer = ({
               <AudioPlayer
                 {...audioPlayer}
                 insertDefaultUI={insertDefaultUI}
-                audioContext={audioContext}
-                destination={destination}
-                mediaStreamDestinationNode={mediaStreamDestinationNode}
+                webAudioApi={webAudioApi}
                 setMusicReady={setMusicReady}
               />
             </AudioPlayerContainer>

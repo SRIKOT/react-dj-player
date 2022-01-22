@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { UserMediaProps } from "../interfaces"
+import { UserMediaProps, WebAudioApiState } from "../interfaces"
 import { ButtonCircle } from "../styles/globals"
 
 interface Props extends UserMediaProps {
   insertDefaultUI: boolean
-  audioContext: AudioContext
-  mediaStreamDestinationNode: MediaStreamAudioDestinationNode
+  webAudioApi: WebAudioApiState
   setUserMediaReady: (ready: boolean) => void
 }
 
@@ -14,12 +13,12 @@ const UserMedia = ({
   muted = false,
   onError,
   insertDefaultUI,
-  audioContext,
-  mediaStreamDestinationNode,
+  webAudioApi,
   setUserMediaReady,
 }: Props) => {
   const [muted2, setMuted2] = useState<boolean>(false)
   const [gain1, setGain1] = useState<GainNode>()
+  const { audioContext, mediaStreamDestinationNode } = webAudioApi
 
   useEffect(() => {
     const initUserMediaStream = async () => {

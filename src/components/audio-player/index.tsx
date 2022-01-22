@@ -2,13 +2,11 @@ import React, { useEffect, useState, useRef } from "react"
 import VolumeControl from "./volume-control"
 import MainControl from "./main-control"
 import Additinonal from "./additional"
-import { AudioPlayerProps } from "../../interfaces"
+import { AudioPlayerProps, WebAudioApiState } from "../../interfaces"
 
 interface Props extends AudioPlayerProps {
   insertDefaultUI: boolean
-  audioContext: AudioContext
-  destination: AudioDestinationNode
-  mediaStreamDestinationNode: MediaStreamAudioDestinationNode
+  webAudioApi: WebAudioApiState
   setMusicReady: (ready: boolean) => void
 }
 
@@ -33,9 +31,7 @@ const AudioPlayer = ({
   onMuted,
   onLoop,
   insertDefaultUI,
-  audioContext,
-  destination,
-  mediaStreamDestinationNode,
+  webAudioApi,
   setMusicReady,
 }: Props) => {
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -45,6 +41,7 @@ const AudioPlayer = ({
   const [volume2, setVolume2] = useState<number>(1)
   const [muted2, setMuted2] = useState<boolean>(false)
   const [loop2, setLoop2] = useState<boolean>(false)
+  const { audioContext, destination, mediaStreamDestinationNode } = webAudioApi
 
   const handleOnPlay = async (
     e: React.SyntheticEvent<HTMLAudioElement, Event>

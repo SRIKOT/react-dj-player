@@ -1,5 +1,11 @@
 import { MouseEventHandler } from "react"
 
+export interface WebAudioApiState {
+  audioContext: AudioContext
+  destination: AudioDestinationNode
+  mediaStreamDestinationNode: MediaStreamAudioDestinationNode
+}
+
 export interface UserMediaProps {
   constraints: MediaStreamConstraints
   muted?: boolean
