@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { device } from "../base"
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -36,10 +37,14 @@ const AudioPlayerContainer = styled.div`
   justify-content: space-evenly;
   display: flex;
   gap: 0.5rem;
+  position: relative;
+  padding-top: 0.75rem;
   @media only screen and ${device.tablet} {
     width: auto;
     justify-content: flex-end;
     min-width: 350px;
+    position: static;
+    padding-top: 0;
   }
 `
 

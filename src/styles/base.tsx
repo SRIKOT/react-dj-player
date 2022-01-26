@@ -22,6 +22,8 @@ const device = {
 const color = {
   danger: "#EF4444",
   white: "#FFFFFF",
+  gray200: "rgb(229 231 235)",
+  gray400: "rgb(156 163 175)",
 }
 
 const shadow = {

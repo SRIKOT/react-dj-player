@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import VolumeControl from "./volume-control"
 import MainControl from "./main-control"
 import Additinonal from "./additional"
+import Progressbar from "./progressbar"
 import { AudioPlayerProps, WebAudioApiState } from "../../interfaces"
 
 interface Props extends AudioPlayerProps {
@@ -41,6 +42,7 @@ const AudioPlayer = ({
   const [volume2, setVolume2] = useState<number>(1)
   const [muted2, setMuted2] = useState<boolean>(false)
   const [loop2, setLoop2] = useState<boolean>(false)
+  const [currentTime, setCurrentTime] = useState<number>(0)
   const { audioContext, destination, mediaStreamDestinationNode } = webAudioApi
 
   const handleOnPlay = async (
@@ -61,6 +63,21 @@ const AudioPlayer = ({
   const handleOnEnded = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
     onEnded?.(e)
     setPlaying2(false)
+    if (audioRef.current) audioRef.current.currentTime = 0
+  }
+
+  const handleOnClickNext = () => {
+    onClickNext?.()
+    if (audioRef.current) audioRef.current.currentTime = 0
+  }
+
+  const handleOnClickPrevious = () => {
+    onClickPrevious?.()
+    if (audioRef.current) audioRef.current.currentTime = 0
+  }
+
+  const handleOnSeeked = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+    setCurrentTime(e.currentTarget.currentTime)
   }
 
   const handleOnMuted = (muted: boolean) => {
@@ -91,16 +108,26 @@ const AudioPlayer = ({
   }, [])
 
   useEffect(() => {
+    let timer: NodeJS.Timer
     const playPause = async () => {
       if (!audioRef.current) return
       if (playing2) {
         await audioRef.current.play()
+        timer = setInterval(() => {
+          if (audioRef.current?.currentTime) {
+            setCurrentTime(audioRef.current.currentTime)
+          }
+        }, 1000)
       } else {
         audioRef.current.pause()
+        clearInterval(timer)
       }
     }
 
     playPause()
+    return () => {
+      clearInterval(timer)
+    }
   }, [playing2])
 
   useEffect(() => {
@@ -151,16 +178,20 @@ const AudioPlayer = ({
         onPlay={(e) => handleOnPlay(e)}
         onPause={(e) => handleOnPause(e)}
         onEnded={(e) => handleOnEnded(e)}
+        onSeeked={(e) => handleOnSeeked(e)}
         onError={(e) => onError?.(e)}
       />
       {insertDefaultUI ? (
         <>
+          {audioRef.current && (
+            <Progressbar currentTime={currentTime} audio={audioRef.current} />
+          )}
           <Additinonal loop={loop2} setLoop={setLoop2} />
           <MainControl
             playing={playing2}
             setPlaying={setPlaying2}
-            onClickNext={onClickNext}
-            onClickPrevious={onClickPrevious}
+            onClickNext={handleOnClickNext}
+            onClickPrevious={handleOnClickPrevious}
           />
           <VolumeControl
             muted={muted2}
