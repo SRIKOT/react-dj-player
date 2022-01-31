@@ -22,7 +22,10 @@ const device = {
 const color = {
   danger: "#EF4444",
   white: "#FFFFFF",
+  gray50: "rgb(248 250 252)",
+  gray100: "rgb(241 245 249)",
   gray200: "rgb(229 231 235)",
+  gray300: "rgb(203 213 225)",
   gray400: "rgb(156 163 175)",
 }
 

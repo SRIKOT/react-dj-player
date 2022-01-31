@@ -42,7 +42,7 @@ const AudioPlayer = ({
   const [volume2, setVolume2] = useState<number>(1)
   const [muted2, setMuted2] = useState<boolean>(false)
   const [loop2, setLoop2] = useState<boolean>(false)
-  const [currentTime, setCurrentTime] = useState<number>(0)
+  const [playerLoaded, setPlayerLoaded] = useState<boolean>(false)
   const { audioContext, destination, mediaStreamDestinationNode } = webAudioApi
 
   const handleOnPlay = async (
@@ -76,16 +76,16 @@ const AudioPlayer = ({
     if (audioRef.current) audioRef.current.currentTime = 0
   }
 
-  const handleOnSeeked = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
-    setCurrentTime(e.currentTarget.currentTime)
-  }
-
   const handleOnMuted = (muted: boolean) => {
     onMuted?.(muted)
   }
 
   const handleOnLoop = (loop: boolean) => {
     onLoop?.(loop)
+  }
+
+  const handleOnLoadedMetadata = () => {
+    setPlayerLoaded(true)
   }
 
   useEffect(() => {
@@ -108,26 +108,16 @@ const AudioPlayer = ({
   }, [])
 
   useEffect(() => {
-    let timer: NodeJS.Timer
     const playPause = async () => {
       if (!audioRef.current) return
       if (playing2) {
         await audioRef.current.play()
-        timer = setInterval(() => {
-          if (audioRef.current?.currentTime) {
-            setCurrentTime(audioRef.current.currentTime)
-          }
-        }, 1000)
       } else {
         audioRef.current.pause()
-        clearInterval(timer)
       }
     }
 
     playPause()
-    return () => {
-      clearInterval(timer)
-    }
   }, [playing2])
 
   useEffect(() => {
@@ -178,14 +168,12 @@ const AudioPlayer = ({
         onPlay={(e) => handleOnPlay(e)}
         onPause={(e) => handleOnPause(e)}
         onEnded={(e) => handleOnEnded(e)}
-        onSeeked={(e) => handleOnSeeked(e)}
+        onLoadedMetadata={() => handleOnLoadedMetadata()}
         onError={(e) => onError?.(e)}
       />
-      {insertDefaultUI ? (
+      {insertDefaultUI && playerLoaded && audioRef.current ? (
         <>
-          {audioRef.current && (
-            <Progressbar currentTime={currentTime} audio={audioRef.current} />
-          )}
+          <Progressbar audio={audioRef.current} />
           <Additinonal loop={loop2} setLoop={setLoop2} />
           <MainControl
             playing={playing2}

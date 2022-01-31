@@ -5,29 +5,26 @@ import { color } from "../../base"
 const StyledSlider = styled(ReactSlider)`
   width: 100%;
   height: 3px;
-  background-color: ${color.gray200};
+  background-color: ${color.gray100};
   cursor: pointer;
-  border-radius: 0.25rem;
 `
 
 const StyledTrack = styled.div`
   top: 0;
   bottom: 0;
-  ${(props: any) => ` ${
-    props.index === 0
-      ? `
-      background-color: ${color.gray400};
-      border-top-left-radius: 0.25rem;
-    `
-      : props.index === 1
-      ? `
-        background-color: ${color.gray200};
-        border-top-right-radius: 0.25rem;
+  ${(props: any) => `
+    ${
+      props.index === 0
+        ? `
+          background-color: ${color.gray400};
         `
-      : `
-        background-color: ${color.gray400};
+        : `
+          background-color: ${color.gray200};
+          transition-property: all;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-duration: 150ms;
         `
-  }
+    }
   `}
 `
 
