@@ -8,7 +8,7 @@ import { AudioPlayerProps, WebAudioApiState } from "../../interfaces"
 interface Props extends AudioPlayerProps {
   insertDefaultUI: boolean
   webAudioApi: WebAudioApiState
-  setMusicReady: (ready: boolean) => void
+  setAudioPlayerReady: (ready: boolean) => void
 }
 
 const AudioPlayer = ({
@@ -33,7 +33,7 @@ const AudioPlayer = ({
   onLoop,
   insertDefaultUI,
   webAudioApi,
-  setMusicReady,
+  setAudioPlayerReady,
 }: Props) => {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [gainDj, setGainDj] = useState<GainNode>()
@@ -104,7 +104,7 @@ const AudioPlayer = ({
     source.connect(g1)
     source.connect(g2)
 
-    setMusicReady(true)
+    setAudioPlayerReady(true)
   }, [])
 
   useEffect(() => {
