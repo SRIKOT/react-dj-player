@@ -1,12 +1,12 @@
 import styled from "styled-components"
-import { device } from "../base"
+import { device, color } from "../base"
 
 const Container = styled.div`
+  background-color: ${color.white};
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 0.25rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   align-items: center;
   padding: 0.75rem;
