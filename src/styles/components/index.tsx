@@ -36,7 +36,7 @@ const AudioPlayerContainer = styled.div`
   width: 100%;
   justify-content: space-evenly;
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   position: relative;
   padding-top: 0.75rem;
   @media only screen and ${device.tablet} {
