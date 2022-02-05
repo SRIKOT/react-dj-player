@@ -6,7 +6,7 @@ const Container = styled.div`
     // height: 25px;
     -webkit-appearance: none;
     // margin: 10px 0;
-    margin-bottom: 5px;
+    // margin-bottom: 5px;
     width: 100%;
   }
   input[type="range"]:focus {

@@ -8,6 +8,9 @@ const ButtonIcon = styled.button<ButtonProps>`
   cursor: pointer;
   display: inline-block;
   background-color: ${color.white};
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  padding 0;
 `
 
 const ButtonCircle = styled.button<ButtonProps>`
