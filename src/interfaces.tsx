@@ -38,6 +38,7 @@ export interface SoundEffectProps {
   name?: React.ReactNode
   src: string
   volume?: number
+  className?: string
   onRef?: (player: SoundEffectPlayer) => void
 }
 

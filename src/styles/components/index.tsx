@@ -13,7 +13,10 @@ const Container = styled.div`
   gap: 0.75rem;
   @media only screen and ${device.tablet} {
     flex-direction: row;
-    padding: 1rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
     gap: 1rem;
   }
 `
@@ -24,7 +27,10 @@ const SoundEffectContainer = styled.div`
   overflow-y: hidden;
   overflow-x: auto;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
   ::-webkit-scrollbar {
@@ -41,15 +47,22 @@ const AudioPlayerContainer = styled.div`
   padding-top: 0.75rem;
   @media only screen and ${device.tablet} {
     width: auto;
-    justify-content: flex-end;
+    justify-content: inherit;
     min-width: 350px;
     position: static;
-    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 `
 
 const UserMediaContainer = styled.div`
   display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 `
 
 export {

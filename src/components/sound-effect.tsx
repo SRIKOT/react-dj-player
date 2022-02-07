@@ -13,6 +13,7 @@ const SoundEffect = ({
   name,
   src,
   volume = 1,
+  className,
   onRef,
   insertDefaultUI,
   webAudioApi,
@@ -73,7 +74,13 @@ const SoundEffect = ({
   }, [gainDj, gainListener, buffer])
 
   return insertDefaultUI ? (
-    <Button onClick={() => playSoundEffect()}>{name}</Button>
+    className ? (
+      <button className={className} onClick={() => playSoundEffect()}>
+        {name}
+      </button>
+    ) : (
+      <Button onClick={() => playSoundEffect()}>{name}</Button>
+    )
   ) : null
 }
 
