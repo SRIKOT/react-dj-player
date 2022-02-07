@@ -61,16 +61,16 @@ const ReactDjPlayer = ({
     <Container>
       {webAudioApi ? (
         <>
-          <UserMediaContainer>
-            {userMedia && (
+          {userMedia && (
+            <UserMediaContainer>
               <UserMedia
                 {...userMedia}
                 insertDefaultUI={insertDefaultUI}
                 webAudioApi={webAudioApi}
                 setUserMediaReady={setUserMediaReady}
               />
-            )}
-          </UserMediaContainer>
+            </UserMediaContainer>
+          )}
           {soundEffects && soundEffects.length ? (
             <SoundEffectContainer>
               {soundEffects.map((s, i) => (
