@@ -21,23 +21,6 @@ const Container = styled.div`
   }
 `
 
-const SoundEffectContainer = styled.div`
-  display: flex;
-  width: 100%;
-  overflow-y: hidden;
-  overflow-x: auto;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  ::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-  }
-`
-
 const AudioPlayerContainer = styled.div`
   width: 100%;
   justify-content: space-evenly;
@@ -67,7 +50,6 @@ const UserMediaContainer = styled.div`
 
 export {
   Container,
-  SoundEffectContainer,
   AudioPlayerContainer,
   UserMediaContainer,
 }

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { fetchBuffer } from "../utils"
-import { SoundEffectProps, WebAudioApiState } from "../interfaces"
-import { Button } from "../styles/components/sound-effect"
+import React, { useEffect, useState, memo } from "react"
+import { fetchBuffer } from "../../utils"
+import { SoundEffectProps, WebAudioApiState } from "../../interfaces"
+import { Button } from "../../styles/components/sound-effect/sound-effect"
 
 interface Props extends SoundEffectProps {
   insertDefaultUI: boolean
@@ -84,4 +84,4 @@ const SoundEffect = ({
   ) : null
 }
 
-export default SoundEffect
+export default memo(SoundEffect)

@@ -49,4 +49,5 @@ export interface SoundEffectPlayer {
 export interface ButtonProps {
   color?: "error" | ""
   onClick?: MouseEventHandler<HTMLButtonElement>
+  ref?: any
 }

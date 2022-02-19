@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { color, shadow } from "../base"
+import { color, shadow } from "../../base"
 
 const Button = styled.button`
   border-radius: 0.25rem;

@@ -10,7 +10,6 @@ import SoundEffect from "./sound-effect"
 import UserMedia from "./user-media"
 import {
   Container,
-  SoundEffectContainer,
   AudioPlayerContainer,
   UserMediaContainer,
 } from "../styles/components"
@@ -72,17 +71,12 @@ const ReactDjPlayer = ({
             </UserMediaContainer>
           )}
           {soundEffects && soundEffects.length ? (
-            <SoundEffectContainer>
-              {soundEffects.map((s, i) => (
-                <SoundEffect
-                  {...s}
-                  key={i}
-                  insertDefaultUI={insertDefaultUI}
-                  webAudioApi={webAudioApi}
-                  setSoundEffectReady={setSoundEffectReady}
-                />
-              ))}
-            </SoundEffectContainer>
+            <SoundEffect
+              insertDefaultUI={insertDefaultUI}
+              soundEffects={soundEffects}
+              webAudioApi={webAudioApi}
+              setSoundEffectReady={setSoundEffectReady}
+            />
           ) : null}
           {audioPlayer && (
             <AudioPlayerContainer>
